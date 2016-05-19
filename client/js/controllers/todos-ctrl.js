@@ -4,7 +4,7 @@ angular.module('todoController', [])
 	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
 		$scope.formData = {};
 		$scope.loading = true;
-
+		
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
 		// use the service to get all the todos
@@ -12,6 +12,9 @@ angular.module('todoController', [])
 			.success(function(data) {
 				$scope.todos = data;
 				$scope.loading = false;
+				$scope.completed = false;
+				$scope.deleted = false;
+				$scope.snooze;
 			});
 
 		// CREATE ==================================================================
@@ -25,14 +28,21 @@ angular.module('todoController', [])
 
 				// call the create function from our service (returns a promise object)
 				Todos.create($scope.formData)
-
+				
 					// if successful creation, call our get function to get all the new todos
 					.success(function(data) {
 						$scope.loading = false;
 						$scope.formData = {}; // clear the form so our user is ready to enter another
 						$scope.todos = data; // assign our new list of todos
+						$scope.completed = false;
+						$scope.deleted = false;
+						$scope.snooze = 0;
 					});
 			}
 		};
-
+		$scope.change = function() {		
+			$scope.snooze = 1;
+			//expect(data.isDisplayed()).toBeFalsy;
+			
+		};
 	}]);

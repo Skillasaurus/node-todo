@@ -25,6 +25,15 @@
 	<script src="js/controllers/todos-ctrl.js"></script> <!-- load up our controller -->
 	<script src="js/services/todos-service.js"></script> <!-- load our todo service -->
 	<script src="js/todos-main.js"></script> <!-- load our main application -->
+	<script>
+	  angular.module('changeExample', [])
+	    .controller('ExampleController', ['$scope', function($scope) {
+	      $scope.snooze;
+	      $scope.change = function() {
+		$scope.snooze="Snoozing";
+	      };
+	    }]);
+	</script>
 
 </head>
 <!-- SET THE CONTROLLER -->
@@ -38,18 +47,33 @@
 
 		<!-- TODO LIST -->
 		<div id="todo-list" class="row">
+			<div class ="col-sm-4 col-sm-offset-3">
+			  <div class="Snooze" ng-repeat="todo in todos">
+				   <button ng-click = "Snoozing"><<</button>
+                          <div ng-show= "Snoozing" class ng-hide= "todo in todos">
+			  </div>	
+		          </div>
+			</div>
 			<div class="col-sm-4 col-sm-offset-4">
-
 				<div class="checkbox"  ng-repeat="todo in todos">
+				  <!--<label for ="checkbox">!Snooze</label>-->
                                   <label>
-                                  <input type="checkbox"> {{ todo.text }}
+                                  <input type="checkbox" ng-model="snooze" ng-change= "change" id= "ng-change-snooze"> {{ todo.text }}
+				 <!--	<tt>{{snooze}}</tt><br/>-->
                                   </label>
-                                 </div>
-                             
+                                </div>  
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
-
+			</div>
+			<div class ="col-sm-4 col-sm-offset-15">
+			  <div class="Delete" ng-repeat="todo in todos">
+				   <button ng-click = "Delete">
+       				    Delete
+				   </button>
+                          <div ng-show= "Deleted" class ng-hide= "todo in todos">
+			  </div>	
+		          </div>
 			</div>
 		</div>
 
